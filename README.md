@@ -10,9 +10,9 @@ The [pForth ("Portable Forth")](https://github.com/philburk/pforth) implementati
 
 Edit "pforth_config.h" depending on the features of your board. At present `PFORTH_USE_SDRAM` requires a Giga or Portenta H7 board (untested, feedback welcome), while `PFORTH_WEB_CONSOLE` requires the "WebSockets2_Generic" library (my [patched version](https://github.com/cpp-tutor/WebSockets2_Generic) 1.14+ for Giga). If using `PFORTH_WEB_CONSOLE` then edit file "arduino_secrets.h" to match your WiFi network.
 
-Flashing to the board needs around 360-400K Flash Memory available. Runtime memory usage is at least the global variables (slightly above 64K) plus the two arrays in "src/pfdicdat.h", plus the values `PF_EXTRA_HEADERS` and `PF_EXTRA_CODE` in "src/pf_arduino.h". In case of failure to boot, reduce these last two and recompile the library and sketch.
+Flashing to the board needs around 360-400K Flash Memory available. Runtime memory usage is at least the global variables (slightly above 64K), plus the two arrays in "src/pfdicdat.h", plus the values `PF_EXTRA_HEADERS` and `PF_EXTRA_CODE` in "src/pf_arduino.h". In case of failure to boot, reduce these last two and recompile the library and sketch.
 
-Input and output are either through the serial console, or via a webpage (when `PF_WEB_CONSOLE` is set), the address of which is printed to the Serial Monitor on boot.
+Input and output are either through the serial console, or via a webpage (when `PF_WEB_CONSOLE` is set, the address of which is printed to the Serial Monitor on boot).
 
 Pre-defined custom Words are: `MILLIS`, `MICROS`, `DELAY`, `DELAYMICROSECONDS`, `PINMODE`, `DIGITALWRITE`, `DIGITALREAD`, `ANALOGWRITERESOLUTION`, `ANALOGWRITE`, `ANALOGREADRESOLUTION`, `ANALOGREAD` and `ANALOGREFERENCE`. These have the same (integer) input and output parameter(s) as for the similarly named [Arduino functions](https://www.arduino.cc/reference/en/).
 
@@ -69,7 +69,7 @@ Err CompileCustomFunctions(void)
 }
 ```
 
-4. Compile "pforth.exe" (Windows) or "pforth" (Linux) and move this to directory "fth". Run (`./forth` for Linux:
+4. Compile "pforth.exe" (Windows) or "pforth" (Linux) and move this to directory "fth". Run these commands (use `./pforth` for Linux):
 
 ```bash
 pforth -i system.fth
@@ -81,7 +81,7 @@ BYE
 
 5. Locate the newly-created "pfdicdat.h" and move this into the "pForth/src/" directory (within your Arduino libraries directory).
 
-6. Add your custom functions to the sketch in three ways: function declaration, function definition and entry in `CustomFunctionTable` (the order must match **exactly** that in "pf_arduino.c".
+6. Add your custom functions to the sketch in three ways: function declaration, function definition and entry in `CustomFunctionTable` (the order must match **exactly** that in "pf_arduino.c").
 
 7. Compile the sketch and library.
 
